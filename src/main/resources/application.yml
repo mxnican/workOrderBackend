@@ -1,0 +1,28 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: work-order-backend
+  datasource:
+    url: ${WORKORDER_DB_URL:jdbc:mysql://127.0.0.1:3306/work_order?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai}
+    username: ${WORKORDER_DB_USERNAME:root}
+    password: ${WORKORDER_DB_PASSWORD:123456}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:workorder-schema.sql
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+
+workorder:
+  upload-dir: ${WORKORDER_UPLOAD_DIR:${user.dir}/uploads}
